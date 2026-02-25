@@ -8,6 +8,9 @@
 Thumbs.db
 Desktop.ini
 
+# AI tool directories
+.claude/
+
 # Editor temp files
 *~
 *.swp
