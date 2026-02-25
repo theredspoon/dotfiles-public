@@ -1,0 +1,196 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+# Try to emulate your p10k-rainbow look:
+# - 2 lines
+# - "frame" ornaments (╭─ / ╰─) in a dim gray
+# - powerline separators
+# - left prompt: os + dir + git + language/toolchain icons
+# - right prompt: status + duration + time with separators
+
+add_newline = true
+
+palette = "p10k_like"
+
+format = """
+[╭─](fg:frame)\
+[](fg:os_bg)\
+$os\
+[](fg:os_bg bg:dir_bg)\
+$directory\
+[](fg:dir_bg bg:vcs_bg)\
+$git_branch\
+$git_status\
+[](fg:vcs_bg bg:lang_bg)\
+$nodejs$python$rust$golang$java$kotlin$haskell$php$c$cpp\
+[](fg:lang_bg)\
+$line_break\
+[╰─](fg:frame)$character"""
+
+# Right side of the FIRST line. Since Starship is scoped only to bash and ble.sh is not installed, right prompt doesn't work.
+right_format = """
+[](fg:r_time_bg)\
+$time\
+[](fg:r_dur_bg bg:r_time_bg)\
+$cmd_duration\
+[](fg:r_stat_bg bg:r_dur_bg)\
+$status\
+[](fg:r_stat_bg)"""
+
+[palettes.p10k_like]
+# p10k-ish approximations (terminal palette indices mapped to reasonable hex)
+frame      = "#808080"  # ~244
+os_bg      = "#e5e5e5"  # ~7
+os_fg      = "#080808"  # ~232
+dir_bg     = "#1f5fd7"  # ~4
+dir_fg     = "#f2f2f2"  # ~254
+vcs_bg     = "#2aa198"  # teal-ish (use as a stable bg for git; p10k varies by state)
+vcs_fg     = "#080808"
+lang_bg    = "#d7af00"  # yellow-ish for toolchain strip
+lang_fg    = "#080808"
+
+# Right prompt strip colors (kept distinct, readable)
+r_stat_bg  = "#3a3a3a"
+r_dur_bg   = "#5f5f00"
+r_time_bg  = "#2f5f87"
+r_fg       = "#f2f2f2"
+
+# ----------------------------
+# Core modules
+# ----------------------------
+
+[os]
+disabled = false
+style = "bg:os_bg fg:os_fg"
+format = "[$symbol]($style)"
+
+[os.symbols]
+Macos = "󰀵 "
+Linux = "󰌽 "
+Ubuntu = "󰕈 "
+Debian = "󰣚 "
+Arch = "󰣇 "
+Windows = "󰍲 "
+
+[directory]
+truncate_to_repo = true
+truncation_length = 3
+truncation_symbol = "…/"
+style = "bg:dir_bg fg:dir_fg bold"
+read_only = " "
+read_only_style = "bg:dir_bg fg:#ff5f5f bold"
+format = "[ $path$read_only ]($style)"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = " "
+style = "bg:vcs_bg fg:vcs_fg"
+format = "[ on $symbol$branch ]($style)"
+
+[git_status]
+style = "bg:vcs_bg fg:vcs_fg"
+format = "[$all_status$ahead_behind ]($style)"
+conflicted = "~${count} "
+staged     = "+${count} "
+modified   = "!${count} "
+untracked  = "?${count} "
+deleted    = "-${count} "
+renamed    = "»${count} "
+stashed    = "*${count} "
+ahead      = "⇡${count} "
+behind     = "⇣${count} "
+diverged   = "⇕⇡${ahead_count}⇣${behind_count} "
+
+[line_break]
+disabled = false
+
+# p10k-like prompt char: ❯ green on success, red on error.
+[character]
+success_symbol = "[❯](bold fg:#5fd700)"
+error_symbol = "[❯](bold fg:#ff0000)"
+vimcmd_symbol = "[❮](bold fg:#5fd700)"
+vimcmd_replace_one_symbol = "[❮](bold fg:#af5fff)"
+vimcmd_replace_symbol = "[❮](bold fg:#af5fff)"
+vimcmd_visual_symbol = "[❮](bold fg:#d7af00)"
+
+# ----------------------------
+# Right prompt modules
+# ----------------------------
+
+[status]
+disabled = false
+style = "bg:r_stat_bg fg:r_fg bold"
+format = "[ $symbol$status ]($style)"
+success_symbol = "✔"
+symbol = "✘"
+
+[cmd_duration]
+min_time = 3000
+show_milliseconds = false
+style = "bg:r_dur_bg fg:r_fg bold"
+format = "[ took $duration ]($style)"
+
+[time]
+disabled = false
+time_format = "%H:%M:%S"
+style = "bg:r_time_bg fg:r_fg dimmed"
+format = "[ at $time ]($style)"
+
+# ----------------------------
+# Language/toolchain strip (icons from your presets)
+# ----------------------------
+
+[nodejs]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"
+
+[python]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"
+
+[rust]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"
+
+[golang]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"
+
+[java]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"
+
+[kotlin]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"
+
+[haskell]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"
+
+[php]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"
+
+[c]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"
+
+[cpp]
+symbol = " "
+style = "bg:lang_bg fg:lang_fg"
+format = "[ $symbol($version) ]($style)"

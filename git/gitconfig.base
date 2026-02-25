@@ -1,0 +1,93 @@
+# ~/.config/dotfiles-public/git/gitconfig.base
+#
+# Portable Git behavior baseline.
+# Contains ergonomics and safety defaults only.
+# No identity, credentials, or machine-specific configuration.
+
+
+# -------------------------------------------------------------------
+# Initialization
+# -------------------------------------------------------------------
+
+# Use 'main' as the default branch name on new repositories.
+[init]
+    defaultBranch = main
+
+
+# -------------------------------------------------------------------
+# Core behavior
+# -------------------------------------------------------------------
+
+# Normalize line endings on commit (safe default for macOS/Linux).
+# Prevents accidental CRLF commits.
+[core]
+    autocrlf = input
+
+    # Global ignore file for OS/editor artifacts.
+    excludesFile = ~/.config/dotfiles-public/git/gitignore.global
+
+
+# -------------------------------------------------------------------
+# Pull / Rebase behavior
+# -------------------------------------------------------------------
+
+# Rebase instead of merge on git pull to keep history linear.
+[pull]
+    rebase = true
+
+# Automatically stash local changes before rebase.
+[rebase]
+    autoStash = true
+
+
+# -------------------------------------------------------------------
+# Fetch / Push behavior
+# -------------------------------------------------------------------
+
+# Remove remote-tracking branches and tags deleted on the server.
+[fetch]
+    prune = true
+    pruneTags = true
+
+# Push the current branch to a branch of the same name by default.
+[push]
+    default = current
+
+
+# -------------------------------------------------------------------
+# Branch & Status ergonomics
+# -------------------------------------------------------------------
+
+# Show most recently updated branches first.
+[branch]
+    sort = -committerdate
+
+# Always display branch information in status output.
+[status]
+    branch = true
+
+
+# -------------------------------------------------------------------
+# Diff / Merge quality
+# -------------------------------------------------------------------
+
+# Use histogram diff algorithm for clearer changes.
+[diff]
+    algorithm = histogram
+
+# Show base version in merge conflicts for better clarity.
+[merge]
+    conflictstyle = zdiff3
+
+# Reuse recorded conflict resolutions automatically.
+[rerere]
+    enabled = true
+
+
+# -------------------------------------------------------------------
+# CLI ergonomics
+# -------------------------------------------------------------------
+
+# Suggest and auto-correct mistyped commands after short delay.
+[help]
+    autocorrect = 5

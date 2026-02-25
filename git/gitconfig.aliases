@@ -1,0 +1,52 @@
+[alias]
+	st = status -sb
+	sw = switch
+	rs = restore
+	unstage = restore --staged
+	br = branch
+	com = commit -m
+	am = commit --amend
+	amn = commit --amend --no-edit
+	ds = diff --staged
+	df = diff
+	lg = log --oneline --graph --decorate --all
+	last = log -1 HEAD
+	po = push origin HEAD
+	pu = push -u origin HEAD
+	pf = push --force-with-lease origin HEAD
+	current = !git branch --show-current
+	aliases = "!git config --get-regexp \"^alias\\.\" | perl -ne 'chomp; my ($k,$v)=split(/\\s+/, $_, 2); $k =~ s/^alias\\.//; if ($k =~ s/\\.desc$//) { $d{$k}=$v; } else { $c{$k}=$v; } END { for my $k (sort keys %c) { my $cmd = $c{$k}; $cmd = \"see ~/.gitconfig\" if $k eq \"aliases\"; my $desc = $d{$k}//\"\"; print \"$k\\t$cmd\\t$desc\\n\"; } }' | column -t -s $'\\t'"
+[alias "st"]
+	desc = compact status (branch + ahead/behind)
+[alias "sw"]
+	desc = switch branches
+[alias "rs"]
+	desc = restore working tree files
+[alias "unstage"]
+	desc = unstage files
+[alias "br"]
+	desc = list/create/rename/delete branches
+[alias "com"]
+	desc = commit with message
+[alias "am"]
+	desc = amend last commit (edit message)
+[alias "amn"]
+	desc = amend last commit (keep message)
+[alias "ds"]
+	desc = diff staged changes
+[alias "df"]
+	desc = diff working tree changes
+[alias "lg"]
+	desc = graph log (all branches)
+[alias "last"]
+	desc = show last commit
+[alias "po"]
+	desc = push current branch to origin
+[alias "pu"]
+	desc = push current branch and set upstream
+[alias "pf"]
+	desc = safe force push current branch
+[alias "current"]
+	desc = print current branch name
+[alias "aliases"]
+	desc = list aliases with descriptions

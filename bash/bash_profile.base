@@ -1,0 +1,15 @@
+# bash login profile
+# sourced by ~/.bash_profile when a login shell starts. It imports
+# ~/.profile and ~/.bashrc (the latter for interactive functionality) and then sources the private overlay if present.
+
+# helper (needed here; bashrc.base is not sourced in all login contexts)
+source_if_exists() { [ -f "$1" ] && . "$1"; }
+
+# load shared login environment
+[ -f "$HOME/.profile" ] && . "$HOME/.profile"
+
+# interactive shells should also read ~/.bashrc
+[ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+
+# private overlay (machine‑specific additions)
+source_if_exists "$HOME/.config/dotfiles-private/bash/bash_profile.private"

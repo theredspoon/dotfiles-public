@@ -1,0 +1,33 @@
+# zsh interactive profile
+# sourced by ~/.zshrc when an interactive shell starts.  it sets up the
+# common interactive environment and then delegates to the private overlay if one exists.
+
+# Powerlevel10k instant prompt (cache)
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# helper routines
+has() { command -v "$1" >/dev/null 2>&1; }
+source_if_exists() { [ -f "$1" ] && . "$1"; }
+
+# safe completion using XDG cache
+if has compinit; then
+  autoload -Uz compinit
+  compinit -C -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
+fi
+
+# aesthetic configuration (optional)
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+plugins=(git colored-man-pages colorize command-not-found zsh-autosuggestions zsh-syntax-highlighting)
+
+if [ -d "$ZSH" ]; then
+  source "$ZSH/oh-my-zsh.sh"
+fi
+
+# PowerLevel10k config (from repo)
+source_if_exists "$HOME/.config/dotfiles-public/zsh/p10k/p10k.base.zsh"
+
+# private overlay (machine‑specific or sensitive bits)
+source_if_exists "$HOME/.config/dotfiles-private/zsh/zshrc.private"

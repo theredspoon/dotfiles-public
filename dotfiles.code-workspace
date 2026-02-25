@@ -1,0 +1,30 @@
+{
+  "folders": [
+    { "name": "dotfiles-public", "path": "." },
+    { "name": "dotfiles-private", "path": "../dotfiles-private" }
+  ],
+  "settings": {
+    "git.openRepositoryInParentFolders": "never",
+    "search.followSymlinks": false,
+    "search.useIgnoreFiles": true,
+    "search.useGlobalIgnoreFiles": true,
+    "editor.formatOnSave": false,
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/**": true,
+      "**/.cache/**": true,
+      "**/.local/**": true
+    },
+    "search.exclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/**": true,
+      "**/.cache/**": true,
+      "**/.local/**": true
+    },
+    "chat.tools.terminal.autoApprove": {
+      "printf": true
+    }
+  }
+}

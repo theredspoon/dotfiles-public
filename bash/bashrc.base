@@ -1,0 +1,13 @@
+# bash interactive profile
+# sourced by ~/.bashrc when an interactive shell starts.  it sets up the
+# common interactive environment and then delegates to the private overlay if one exists.
+
+# helper routines
+has() { command -v "$1" >/dev/null 2>&1; }
+source_if_exists() { [ -f "$1" ] && . "$1"; }
+
+# Starship prompt (bash only)
+has starship && eval "$(starship init bash)"
+
+# private overlay
+source_if_exists "$HOME/.config/dotfiles-private/bash/bashrc.private"
