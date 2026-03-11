@@ -6,6 +6,9 @@
 has() { command -v "$1" >/dev/null 2>&1; }
 source_if_exists() { [ -f "$1" ] && . "$1"; }
 
+# De-dupe any paths
+typeset -U path PATH
+
 # safe completion using XDG cache (skipped when Oh My Zsh is present; it calls compinit itself)
 if [[ -n "$ZSH_VERSION" && ! -d "$HOME/.oh-my-zsh" ]]; then
   autoload -Uz compinit
