@@ -1,14 +1,14 @@
-# Shared cross‑shell profile
-# This file is sourced by the shell‑specific login profiles (e.g. bash_profile.base, zprofile.base) and is intended for any configuration that should be shared across all shells on the machine.  It should not contain any shell‑specific syntax or tool‑specific wiring. Those belong in the shell‑specific profiles or the private overlay.
+# Shared cross-shell login profile
+#
+# Sourced by shell-specific login profiles and ~/.profile. Keep login-only,
+# cross-shell setup here. Shared environment belongs in shell/env.base.
 
-# XDG base directories (portable defaults)
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
-export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+# Source shared environment first. Interactive rc files source this directly.
+if [ -f "$HOME/.config/dotfiles-public/shell/env.base" ]; then
+  . "$HOME/.config/dotfiles-public/shell/env.base"
+fi
 
-# Any tool‑specific wiring belongs in the private overlay (see shell/profile.private).
-
-# Source private overlay if present.
+# Source private login overlay if present.
 if [ -f "$HOME/.config/dotfiles-private/shell/profile.private" ]; then
   . "$HOME/.config/dotfiles-private/shell/profile.private"
 fi

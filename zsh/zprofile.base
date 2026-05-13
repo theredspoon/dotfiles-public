@@ -1,5 +1,7 @@
 # zsh login profile
-# this file is sourced by ~/.zprofile (or via a symlink).  it sets up the common login environment and then delegates to the private overlay if one exists.
+#
+# Sourced by ~/.zprofile when a login zsh starts. It loads shared login
+# environment, then zsh-specific login overlay if present.
 
 # helper (needed here; zshrc.base is not sourced in all login contexts)
 source_if_exists() { [ -f "$1" ] && . "$1"; }

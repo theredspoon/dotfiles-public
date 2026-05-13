@@ -1,10 +1,14 @@
 # bash interactive profile
-# sourced by ~/.bashrc when an interactive shell starts.  it sets up the
-# common interactive environment and then delegates to the private overlay if one exists.
+#
+# Sourced by ~/.bashrc when an interactive bash starts. It loads the shared
+# environment, then configures bash-only interactive behavior.
 
 # helper routines
 has() { command -v "$1" >/dev/null 2>&1; }
 source_if_exists() { [ -f "$1" ] && . "$1"; }
+
+# shared environment for non-login interactive shells
+source_if_exists "$HOME/.config/dotfiles-public/shell/env.base"
 
 # Starship prompt (bash only)
 has starship && eval "$(starship init bash)"

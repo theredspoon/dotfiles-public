@@ -1,10 +1,14 @@
 # zsh interactive profile
-# sourced by ~/.zshrc when an interactive shell starts.  it sets up the
-# common interactive environment and then delegates to the private overlay if one exists.
+#
+# Sourced by ~/.zshrc when an interactive zsh starts. It loads the shared
+# environment, then configures zsh-only interactive behavior.
 
 # helper routines
 has() { command -v "$1" >/dev/null 2>&1; }
 source_if_exists() { [ -f "$1" ] && . "$1"; }
+
+# shared environment for non-login interactive shells
+source_if_exists "$HOME/.config/dotfiles-public/shell/env.base"
 
 # De-dupe any paths
 typeset -U path PATH

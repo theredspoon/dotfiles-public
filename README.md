@@ -114,7 +114,13 @@ If a private overlay is present the script will also include
 
 ### Shell setup
 
-The public `zsh`, `bash`, and `shell` files are written to be sourced from your real `~/.zshrc` and `~/.zprofile`.  There is no need to separately source the private files: helpers such as `source_if_exists` are defined to handle the private overlay as long as it exists.
+The public `zsh`, `bash`, and `shell` files are written to be sourced from your real shell startup files. There is no need to separately source the private files: helpers such as `source_if_exists` are defined to handle the private overlay as long as it exists.
+
+Startup files are split into three layers:
+
+- `shell/env.base`: shared environment for login and non-login shells. It sources `shell/env.private`.
+- `shell/profile.base`: shared login-only profile setup. It sources `shell/env.base`.
+- `zsh/*rc.base` and `bash/*rc.base`: shell-specific interactive setup. They source `shell/env.base` directly so non-login interactive shells get the same PATH and environment.
 
 Add the following lines to these files:
 
@@ -205,7 +211,8 @@ If you create the directory manually, the following skeleton is a sensible start
 ├── bash/
 │   └── bashrc.private
 └── shell/
-    └── profile.private            # other shells or environment settings
+    ├── env.private                # shared PATH and environment
+    └── profile.private            # login-only shared settings
 ```
 
 You don’t need to populate every subdirectory; only create the ones you
