@@ -118,11 +118,23 @@ The public `zsh`, `bash`, and `shell` files are written to be sourced from your 
 
 Startup files are split into three layers:
 
+- `~/.zshenv`: optional early zsh-only hook for minimal environment fixes that
+  must apply before zsh launches any command, including noninteractive command
+  runners. Keep it tiny; do not source all of `shell/env.base` here because it
+  is broader than a per-invocation zsh hook should be.
 - `shell/env.base`: shared environment for login and non-login shells. It sources `shell/env.private`.
 - `shell/profile.base`: shared login-only profile setup. It sources `shell/env.base`.
 - `zsh/*rc.base` and `bash/*rc.base`: shell-specific interactive setup. They source `shell/env.base` directly so non-login interactive shells get the same PATH and environment.
 
 Add the following lines to these files:
+
+```zsh
+# ~/.zshenv
+
+if [[ -f "$HOME/.config/dotfiles-private/zsh/zshenv.private" ]]; then
+  source "$HOME/.config/dotfiles-private/zsh/zshenv.private"
+fi
+```
 
 ```zsh
 # ~/.zshrc
@@ -207,11 +219,13 @@ If you create the directory manually, the following skeleton is a sensible start
 ├── git/
 │   └── gitconfig.private          # extra `git` includes or overrides
 ├── zsh/
+│   ├── zshenv.private             # minimal early zsh environment hook
 │   └── zshrc.private              # machine-specific shell additions
 ├── bash/
 │   └── bashrc.private
 └── shell/
     ├── env.private                # shared PATH and environment
+    ├── locale.private             # portable shell locale policy
     └── profile.private            # login-only shared settings
 ```
 
