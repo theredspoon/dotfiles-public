@@ -26,9 +26,6 @@
     # Global ignore file for OS/editor artifacts.
     excludesFile = ~/.config/dotfiles-public/git/gitignore.global
 
-    # Global hooks directory in the user's home folder.
-    hooksPath = ~/.githooks
-
 
 # -------------------------------------------------------------------
 # Pull / Rebase behavior
